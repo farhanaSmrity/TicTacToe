@@ -17,14 +17,21 @@ int getGridIndex(int idx){
 	return grid[row][col];
 }
 
-
+/*
+	0 0 0 
+	0 1 0 
+	1 0 0 
+	1 1 1
+	
+	... -1 0 1 - 8 ...... 
+*/
 bool isValidInput(int index){
 	
 	//range check (0-8)
-	if(!(index>=0  && index<9)) 
+	if(!(index>=0  && index<9)) //=> !(index>=0) || !(index<9) => index < 0 || index >=9
 	{
 		return false;
-	}
+	} 
 	//overlap check
 	if(getGridIndex(index)==32)
 	{
@@ -89,6 +96,7 @@ void showbox()
 //This method doesnt take any input. it returns the player who won the game or zero if its a tie.
 int play(){
 	int index,sign,player;
+	bool flag;
 		for(int i=0;i<9;i++){
 			if(i%2==0){
 				sign='x';
@@ -99,16 +107,26 @@ int play(){
 	    		sign='o';
 	    		player=2;
 			}
+			// input validity loop
 			do{
 				showbox();
 	    		printf("\n\t\t\t\t\tplayer%d put your input from 0-8:",player);
-		    	scanf("%d",&index);
-				setGridIndex(index,sign);
-				if(isWinner(sign)){
-			    	printf("player %d wins!!!!.....",player);
-			    return player;
-		    	}	
-			}while(1); //ffiixx  rrequired
+		    	scanf("%d",&index);//this is the input
+		    	flag=isValidInput(index);
+		    	if(flag)
+		    	{
+				
+					setGridIndex(index,sign);
+					if(isWinner(sign)){
+			    		printf("player %d wins!!!!.....",player);
+			    		return player;
+		    	    }	
+	 			} 
+				else{
+				 	printf("Please enter valid input\n");
+			   	}   
+				 
+			}while(!flag);
 			
 		}
 }
@@ -116,6 +134,7 @@ int play(){
 
 
 int main() {
+	bool a=0;
 	/*int item[100][100]; // 0 1 2 .... n // a00 a01 a02 //a10 a11 a12 //1
 	int n=3; 
 	for(int i=0;i<n;i++){ //n
@@ -132,8 +151,10 @@ int main() {
 		printf("\n");
 	}*/
 	
-	reset();
-	play();
+	//reset();
+	//play();
 	//showbox();
+	printf("%d", a=isValidInput(0));
+	printf("\n%d",a==10);
 	return 0;
 }

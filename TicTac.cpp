@@ -1,5 +1,7 @@
 #include <iostream>
 #include<windows.h>
+#include<string.h>
+#include"player.cpp"
 using namespace std;
 int grid[4][4]={32};
 
@@ -56,6 +58,13 @@ bool isWinner(int sign)
 	return false;
 }
 
+void bgColor(char front,char back)
+{
+	
+	system("COLOR 6A");
+}
+
+
 void reset(){
 	for(int i = 0;i<3;i++)
 	{
@@ -109,8 +118,9 @@ int play(){
 			}
 			// input validity loop
 			do{
+			
 				showbox();
-	    		printf("\n\t\t\t\t\tplayer%d put your input from 0-8:",player);
+	    		printf("\n\t\t\t\t\t%s put your input from 0-8:",getPlayerName1());
 		    	scanf("%d",&index);//this is the input
 		    	flag=isValidInput(index);
 		    	if(flag)
@@ -118,12 +128,13 @@ int play(){
 				
 					setGridIndex(index,sign);
 					if(isWinner(sign)){
-			    		printf("player %d wins!!!!.....",player);
+			    		printf("player %s wins!!!!.....",getPlayerName2());
 			    		return player;
 		    	    }	
 	 			} 
 				else{
-				 	printf("Please enter valid input\n");
+				 	printf("\n\t\t\t\t\t\tPlease enter valid input\n");
+					 Sleep(1000);
 			   	}   
 				 
 			}while(!flag);
@@ -150,11 +161,11 @@ int main() {
 		}
 		printf("\n");
 	}*/
-	
-	//reset();
-	//play();
+	setPlayerName1("Smrity");
+	setPlayerName2("Asad");
+    reset();
+	play();
 	//showbox();
-	printf("%d", a=isValidInput(0));
-	printf("\n%d",a==10);
+	bgColor('6','A');
 	return 0;
 }
